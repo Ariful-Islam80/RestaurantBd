@@ -19,13 +19,13 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>,
-                loader: async() => fetch('http://localhost:5000/foods')
+                element: <Home></Home>
             },
             {
                 path: '/foods',
                 element: <Foods></Foods>,
-                loader: () => fetch('http://localhost:5000/foods')
+                loader: () => fetch('http://localhost:5000/foodsCount')
+                
             }, 
             {
                 path: '/checkOut/:id',
@@ -50,7 +50,8 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <Profile></Profile>
+                element: <Profile></Profile>,
+                loader: () => fetch('http://localhost:5000/addCart')
             }
 
         ]

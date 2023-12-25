@@ -42,7 +42,7 @@ const Home = () => {
             <div className="flex justify-center">
 
 
-                <Link to='/foods' className="btn btn-outline btn-info w-4/12 text-xl lg:text-2xl "><strong className="text-white">See All</strong></Link>
+                <Link to='/foods' className="btn btn-outline btn-info w-4/12 text-xl lg:text-2xl "><strong className="dark:text-white">See All</strong></Link>
 
 
             </div>

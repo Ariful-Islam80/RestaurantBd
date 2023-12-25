@@ -1,9 +1,64 @@
+// import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 const CheckOut = () => {
     const food = useLoaderData();
     const { name,  img, category, price, country, description
     } = food;
     console.log(food);
+    // const addToCart = () => {
+    //     try {
+    //         axios.post('http://localhost:5000/addCart',food)
+    //         .then(response => {
+    //           // Handle the successful response here
+    //           console.log('Response:', response.data);
+    //         })
+    //         .catch(error => {
+    //           // Handle errors here
+    //           console.error('Error:', error);
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    const handleAddToCart = () => {
+        const newUserData = { name, price, img };
+        console.log(newUserData);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Add Cart!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("http://localhost:5000/addCart", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(newUserData),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.insertedId) {
+                            console.log(data, "added");
+                        }
+                    });
+                Swal.fire(
+                    'Added!',
+                    'Your Product has been Added.',
+                    'success'
+                )
+            }
+        })
+
+
+    }
+
 return (
     <>
         <section className="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
@@ -102,7 +157,7 @@ return (
                             </div>
                             <div className="flex flex-wrap items-center -mx-4 ">
                                 <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
-                                    <button
+                                    <button onClick={handleAddToCart}
                                         className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300">
                                         Add to Cart
                                     </button>
